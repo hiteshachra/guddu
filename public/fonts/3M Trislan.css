@@ -1,0 +1,8 @@
+@font-face
+{
+    font-family: '3M Trislan';
+  src: url('3M Trislan.eot');
+      url('3M Trislan.eot?#') format('embedded-opentype'),
+      url('3M Trislan.woff') format('woff'),
+      url('3M Trislan.ttf') format('truetype');
+}
