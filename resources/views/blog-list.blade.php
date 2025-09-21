@@ -1,54 +1,57 @@
 @extends('layouts.app_front')
 @section('content')
-<!--==================================================-->
-<!-- Start Consalt Breadcumb Area -->
-<!--==================================================-->
-<div class="breadcumb-area d-flex">
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar text-center mt-5">
 	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-lg-12 text-center">
-				<div class="breadcumb-content">
-					<div class="breadcumb-title">
-						<h4>Blog Grid</h4>
-					</div>
-					<ul>
-						<li><a href="index.html"><i class="bi bi-house-door-fill"></i> Home </a></li>
-						<li class="rotates"><i class="bi bi-slash-lg"></i>Blog Grid</li>
-					</ul>
-				</div>
+		<div class="row">
+			<div class="col-md-12 col-12">
+				<h2 class="breadcrumb-title mb-2">Blog Grid</h2>
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb justify-content-center mb-0">
+						<li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="ti ti-home-2"></i></a></li>
+						<li class="breadcrumb-item">Home</li>
+						<li class="breadcrumb-item active" aria-current="page">Blog Grid</li>
+					</ol>
+				</nav>
 			</div>
+		</div>
+		<div class="breadcrumb-bg">
+			<img src="{{ asset('front/assets/img/bg/bg-07.webp') }}" class="breadcrumb-bg-1" alt="">
+			<img src="{{ asset('front/assets/img/bg/bg-07.webp') }}" class="breadcrumb-bg-2" alt="">
 		</div>
 	</div>
 </div>
-<!--==================================================-->
-<!-- End Consalt Breadcumb Area -->
-<!--==================================================-->
+<!-- /Breadcrumb -->
 
-<!--==================================================-->
-<!-- Start Consalt Blog Area -->
-<!--==================================================-->
-<section class="blog_area inner_page">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="section_title text-center">
-					<h4>LATEST BLOG</h4>
-					<h1>Read Our Latest Insights from the</h1>
-					<h1>Latest Blog Articles</h1>
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+	<div class="content">
+		<div class="container">
+			<div class="row justify-content-center align-items-center" id="blog-container">
+				@include('blog-items') 
+			</div> 
+			<div class="text-center mt-4" id="loading" style="display:none;">
+				<strong>Loading more blogs...</strong>
+			</div>
+			{{-- <div class="table-paginate d-flex justify-content-center align-items-center flex-wrap row-gap-3">
+				<div class="d-flex align-items-center justify-content-center">
+					<nav aria-label="Page navigation">
+						<ul class="paginations d-flex justify-content-center align-items-center">
+							<li class="page-item me-2"><a class=" d-flex justify-content-center align-items-center" href="#"><i class="ti ti-arrow-left me-2"></i>Prev</a></li>
+							<li class="page-item me-2"><a class="page-link-1 active d-flex justify-content-center align-items-center " href="#">1</a></li>
+							<li class="page-item me-2"><a class="page-link-1 d-flex justify-content-center align-items-center" href="#">2</a></li>
+							<li class="page-item "><a class="page-link-1 d-flex justify-content-center align-items-center me-2" href="#">3</a></li>
+							<li class="page-item "><a class="page-link-1 d-flex justify-content-center align-items-center me-2" href="#">4</a></li>
+							<li class="page-item me-2"><a class="d-flex justify-content-center align-items-center" href="#">Next <i class="ti ti-arrow-right ms-2"></i></a></li>
+						</ul>
+					</nav>
 				</div>
-			</div>		
+			</div> --}}
 		</div>
-		<div class="row" id="blog-container">
-            @include('blog-items') 
-		</div>
-        <div class="text-center mt-4" id="loading" style="display:none;">
-            <strong>Loading more blogs...</strong>
-        </div>
 	</div>
-</section>
-<!--==================================================-->
-<!-- End Consalt Blog Area -->
-<!--==================================================-->
+</div>
+<!-- /Page Wrapper -->
 @endsection
 
 
