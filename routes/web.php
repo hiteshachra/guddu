@@ -21,6 +21,9 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index']);
+Route::get('/categories', [HomeController::class, 'categories'])->name('categories');
+Route::get('/services-list', [HomeController::class, 'services_list'])->name('services-list');
+Route::get('/service/{slug}', [HomeController::class, 'service_details'])->name('service-details');
 Route::get('/privacy', [HomeController::class, 'static_content'])->name('privacy');
 Route::get('/terms', [HomeController::class, 'static_content'])->name('terms');
 Route::get('/about-us', [HomeController::class, 'static_content'])->name('about-us');
@@ -35,6 +38,7 @@ Route::get('/blog/{slug}', [HomeController::class, 'blogDetails'])->name('blog_d
 
 Route::get('states/{country_id}', [Controller::class, 'states'])->name('states');
 Route::get('cities/{state_id}', [Controller::class, 'cities'])->name('cities');
+Route::get('/get-subcategories', [ServiceController::class, 'getSubcategories'])->name('get-subcategories');
 Route::get('service-sub-category/{category_id}', [Controller::class, 'subCategories'])->name('service_sub_categories');
 
 Route::middleware(['roleAuth:Admin'])->group(function () {

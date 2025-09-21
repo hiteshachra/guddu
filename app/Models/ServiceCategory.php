@@ -12,11 +12,16 @@ class ServiceCategory extends Model
 
 
 
-      public function subCategories()
+    public function subCategories()
     {
         return $this->hasMany(ServiceSubCategory::class, 'service_category_id');
     }
 
+
+    public function services()
+    {
+        return $this->hasMany(Services::class, 'service_category_id');
+    }
 
 
     public function getCreatedAtAttribute($value)

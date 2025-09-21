@@ -57,6 +57,8 @@ class UserController extends Controller
     public function index()
     {
         if (Auth::user()->role == 1 || Auth::user()->role == 2) {
+            $userPackageCount = 0;
+            
             $userCount = User::count();
             $userInactiveCount = User::where('status', 'Inactive')->count();
 

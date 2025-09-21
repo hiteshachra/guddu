@@ -21,6 +21,16 @@ class Services extends Model
         return $this->belongsTo(ServiceSubCategory::class,'service_sub_category_id');
     }
 
+    public function getDecodedImagesAttribute()
+    {
+        $images = json_decode($this->images, true);
+
+        if (!$images) {
+            return [];
+        }
+
+        return $images;
+    }
 
     public function getCreatedAtAttribute($value)
     {

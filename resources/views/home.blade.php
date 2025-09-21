@@ -12,21 +12,21 @@
                         <p class="mb-3 sub-title">We can connect you to the right Service, first time and every
                             time.</p>
                         <div class="banner-form bg-white border mb-3">
-                            <form action="#">
+                            <form action="{{ route('services-list') }}" method="GET">
                                 <div class="d-md-flex align-items-center">
                                     <div class="input-group mb-2">
                                         <span class="input-group-text px-1"><i class="ti ti-search"></i></span>
-                                        <input type="text" class="form-control" placeholder="Search for Service">
+                                        <input type="text" class="form-control" name="keyword" placeholder="Search for Service" value="{{ request('keyword') }}">
                                     </div>
-                                    <div class="input-group mb-2">
+                                    {{-- <div class="input-group mb-2">
                                         <span class="input-group-text px-1"><i class="ti ti-map-pin"></i></span>
                                         <input type="text" class="form-control" placeholder="Enter Location">
-                                    </div>
+                                    </div> --}}
                                     <div class="mb-2">
-                                        <a href="search.html" class="btn btn-linear-primary d-inline-flex align-items-center w-100">
+                                        <button class="btn btn-linear-primary d-inline-flex align-items-center w-100">
                                             <i class="feather-search me-2"></i>
                                             Search
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -104,132 +104,23 @@
         </div>
         <div
             class="row g-4 row-cols-xxl-6 row-cols-xl-6 row-cols-md-4 row-cols-sm-2 row-cols-1 justify-content-center">
+            @foreach ($categories as $category)
             <div class="col d-flex">
                 <div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">
                     <div class="mx-auto mb-3">
-                        <img src="{{asset('front/assets/img/icons/category-01.svg')}}" class="img-fluid" alt="img">
+                        <img src="{{ asset('category_images/'.$category->image) }}" class="img-fluid" alt="{{ $category->name }}">
                     </div>
-                    <h6 class="fs-14 mb-1">Construction</h6>
-                    <p class="fs-14 mb-0">9874 Listings</p>
-                    <a href="categories.html" class="link-primary text-decoration-underline fs-14">View All</a>
+                    <h6 class="fs-14 mb-1">{{ $category->name }}</h6>
+                    <p class="fs-14 mb-0">{{ $category->services_count }} Listings</p>
+                    <a href="{{ route('services-list', ['categories[]' => $category->id]) }}" class="link-primary text-decoration-underline fs-14">View All</a>
                 </div>
             </div>
-            <div class="col d-flex">
-                <div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="mx-auto mb-3">
-                        <img src="{{asset('front/assets/img/icons/category-02.svg')}}" class="img-fluid" alt="img">
-                    </div>
-                    <h6 class="fs-14 mb-1">Removals</h6>
-                    <p class="fs-14 mb-0">787 Listings</p>
-                    <a href="categories.html" class="link-primary text-decoration-underline fs-14">View All</a>
-                </div>
-            </div>
-            <div class="col d-flex">
-                <div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="mx-auto mb-3">
-                        <img src="{{asset('front/assets/img/icons/category-13.svg')}}" class="img-fluid" alt="img">
-                    </div>
-                    <h6 class="fs-14 mb-1">Cleaning</h6>
-                    <p class="fs-14 mb-0">2357 Listings</p>
-                    <a href="categories.html" class="link-primary text-decoration-underline fs-14">View All</a>
-                </div>
-            </div>
-            <div class="col d-flex">
-                <div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="mx-auto mb-3">
-                        <img src="{{asset('front/assets/img/icons/category-04.svg')}}" class="img-fluid" alt="img">
-                    </div>
-                    <h6 class="fs-14 mb-1">Computer Service</h6>
-                    <p class="fs-14 mb-0">1260 Listings</p>
-                    <a href="categories.html" class="link-primary text-decoration-underline fs-14">View All</a>
-                </div>
-            </div>
-            <div class="col d-flex">
-                <div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="mx-auto mb-3">
-                        <img src="{{asset('front/assets/img/icons/category-05.svg')}}" class="img-fluid" alt="img">
-                    </div>
-                    <h6 class="fs-14 mb-1">Electrical</h6>
-                    <p class="fs-14 mb-0">4546 Listings</p>
-                    <a href="categories.html" class="link-primary text-decoration-underline fs-14">View All</a>
-                </div>
-            </div>
-            <div class="col d-flex">
-                <div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="mx-auto mb-3">
-                        <img src="{{asset('front/assets/img/icons/category-06.svg')}}" class="img-fluid" alt="img">
-                    </div>
-                    <h6 class="fs-14 mb-1">Man & Van</h6>
-                    <p class="fs-14 mb-0">2546 Listings</p>
-                    <a href="categories.html" class="link-primary text-decoration-underline fs-14">View All</a>
-                </div>
-            </div>
-            <div class="col d-flex">
-                <div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="mx-auto mb-3">
-                        <img src="{{asset('front/assets/img/icons/category-07.svg')}}" class="img-fluid" alt="img">
-                    </div>
-                    <h6 class="fs-14 mb-1">Deliveries</h6>
-                    <p class="fs-14 mb-0">4547 Listings</p>
-                    <a href="categories.html" class="link-primary text-decoration-underline fs-14">View All</a>
-                </div>
-            </div>
-            <div class="col d-flex">
-                <div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="mx-auto mb-3">
-                        <img src="{{asset('front/assets/img/icons/category-08.svg')}}" class="img-fluid" alt="img">
-                    </div>
-                    <h6 class="fs-14 mb-1">Mobile Barber</h6>
-                    <p class="fs-14 mb-0">4787 Listings</p>
-                    <a href="categories.html" class="link-primary text-decoration-underline fs-14">View All</a>
-                    <span class="badge bg-success">New</span>
-                </div>
-            </div>
-            <div class="col d-flex">
-                <div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="mx-auto mb-3">
-                        <img src="{{asset('front/assets/img/icons/category-09.svg')}}" class="img-fluid" alt="img">
-                    </div>
-                    <h6 class="fs-14 mb-1">Interior</h6>
-                    <p class="fs-14 mb-0">1457 Listings</p>
-                    <a href="categories.html" class="link-primary text-decoration-underline fs-14">View All</a>
-                </div>
-            </div>
-            <div class="col d-flex">
-                <div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="mx-auto mb-3">
-                        <img src="{{asset('front/assets/img/icons/category-10.svg')}}" class="img-fluid" alt="img">
-                    </div>
-                    <h6 class="fs-14 mb-1">Plumbing</h6>
-                    <p class="fs-14 mb-0">4157 Listings</p>
-                    <a href="categories.html" class="link-primary text-decoration-underline fs-14">View All</a>
-                </div>
-            </div>
-            <div class="col d-flex">
-                <div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="mx-auto mb-3">
-                        <img src="{{asset('front/assets/img/icons/category-11.svg')}}" class="img-fluid" alt="img">
-                    </div>
-                    <h6 class="fs-14 mb-1">Nail Technicians</h6>
-                    <p class="fs-14 mb-0">5477 Listings</p>
-                    <a href="categories.html" class="link-primary text-decoration-underline fs-14">View All</a>
-                </div>
-            </div>
-            <div class="col d-flex">
-                <div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="mx-auto mb-3">
-                        <img src="{{asset('front/assets/img/icons/category-12.svg')}}" class="img-fluid" alt="img">
-                    </div>
-                    <h6 class="fs-14 mb-1">Hair Dressers</h6>
-                    <p class="fs-14 mb-0">7457 Listings</p>
-                    <a href="categories.html" class="link-primary text-decoration-underline fs-14">View All</a>
-                </div>
-            </div>
+            @endforeach
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="text-center view-all wow fadeInUp" data-wow-delay="0.2s">
-                    <a href="categories.html" class="btn btn-dark">View All<i
+                    <a href="{{ route('categories') }}" class="btn btn-dark">View All<i
                             class="ti ti-arrow-right ms-2"></i></a>
                 </div>
             </div>
@@ -250,26 +141,19 @@
             </div>
         </div>
         <div class="service-slider owl-carousel nav-center">
+            @foreach ($featuredServices as $featured)
             <div class="service-item wow fadeInUp" data-wow-delay="0.2s">
                 <div class="service-img">
                     <div class="img-slider owl-carousel nav-center">
+                        @foreach ($featured->decoded_images??[] as $image)
                         <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-01.jpg')}}" class="img-fluid" alt="img">
+                            <a href="{{ route('service-details',['slug' => $featured->slug]) }}">
+                                <img src="{{asset('services/images/'.$image)}}" class="img-fluid" alt="img">
                             </a>
                         </div>
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-02.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-03.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
+                        @endforeach
                     </div>
-                    <div class="trend-icon">
+                    {{-- <div class="trend-icon">
                         <span class="bg-success">
                             <i class="feather-trending-up"></i>
                         </span>
@@ -278,166 +162,23 @@
                         <a href="javascript:void(0);" class="fav-icon">
                             <i class="ti ti-heart"></i>
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="service-content">
-                    <h6 class="text-truncate mb-1"><a href="service-details.html">Professional Delivery Services</a>
+                    <h6 class="text-truncate mb-1"><a href="{{ route('service-details',['slug' => $featured->slug]) }}">{{ $featured->title }}</a>
                     </h6>
                     <div class="d-flex align-items-center justify-content-between">
-                        <p class="fw-medium fs-14 mb-0">Service starts at $40</p>
-                        <span class="d-inline-flex align-items-center fs-14"><i
-                                class="ti ti-star-filled text-warning me-1"></i>4.5</span>
+                        <p class="fw-medium fs-14 mb-0">Service starts at {{ $featured->price - $featured->discount }}</p>
+                        <span class="d-inline-flex align-items-center fs-14"><i class="ti ti-star-filled text-warning me-1"></i>{{ $featured->rating }}</span>
                     </div>
                 </div>
             </div>
-            <div class="service-item wow fadeInUp" data-wow-delay="0.2s">
-                <div class="service-img">
-                    <div class="img-slider owl-carousel nav-center">
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-04.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-05.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-06.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="trend-icon">
-                        <span class="bg-success">
-                            <i class="feather-trending-up"></i>
-                        </span>
-                    </div>
-                    <div class="fav-item">
-                        <a href="javascript:void(0);" class="fav-icon">
-                            <i class="ti ti-heart"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="service-content">
-                    <h6 class="text-truncate mb-1"><a href="service-details.html">Classic Manicure & Set of
-                            Nails</a></h6>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <p class="fw-medium fs-14 mb-0">Service starts at $20</p>
-                        <span class="d-inline-flex align-items-center fs-14"><i
-                                class="ti ti-star-filled text-warning me-1"></i>4.4</span>
-                    </div>
-                </div>
-            </div>
-            <div class="service-item wow fadeInUp" data-wow-delay="0.2s">
-                <div class="service-img">
-                    <div class="img-slider owl-carousel nav-center">
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-07.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-08.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-09.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="fav-item">
-                        <a href="javascript:void(0);" class="fav-icon">
-                            <i class="ti ti-heart"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="service-content">
-                    <h6 class="text-truncate mb-1"><a href="service-details.html">Water Heater Installation</a></h6>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <p class="fw-medium fs-14 mb-0">Service starts at $65</p>
-                        <span class="d-inline-flex align-items-center fs-14"><i
-                                class="ti ti-star-filled text-warning me-1"></i>4.2</span>
-                    </div>
-                </div>
-            </div>
-            <div class="service-item wow fadeInUp" data-wow-delay="0.2s">
-                <div class="service-img">
-                    <div class="img-slider owl-carousel nav-center">
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-10.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-11.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-12.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="fav-item">
-                        <a href="javascript:void(0);" class="fav-icon">
-                            <i class="ti ti-heart"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="service-content">
-                    <h6 class="text-truncate mb-1"><a href="service-details.html">General House & Carpet Clean</a>
-                    </h6>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <p class="fw-medium fs-14 mb-0">Service starts at $95</p>
-                        <span class="d-inline-flex align-items-center fs-14"><i
-                                class="ti ti-star-filled text-warning me-1"></i>4.7</span>
-                    </div>
-                </div>
-            </div>
-            <div class="service-item wow fadeInUp" data-wow-delay="0.2s">
-                <div class="service-img">
-                    <div class="img-slider owl-carousel nav-center">
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-16.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-17.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                        <div class="slide-images">
-                            <a href="service-details.html">
-                                <img src="{{asset('front/assets/img/services/service-18.jpg')}}" class="img-fluid" alt="img">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="fav-item">
-                        <a href="javascript:void(0);" class="fav-icon">
-                            <i class="ti ti-heart"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="service-content">
-                    <h6 class="text-truncate mb-1"><a href="service-details.html">Custom PC Builds</a></h6>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <p class="fw-medium fs-14 mb-0">Service starts at $85</p>
-                        <span class="d-inline-flex align-items-center fs-14"><i
-                                class="ti ti-star-filled text-warning me-1"></i>4.8</span>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.2s">
-                    <a href="search.html" class="btn btn-dark">View All<i
+                    <a href="{{ route('services-list') }}" class="btn btn-dark">View All<i
                             class="ti ti-arrow-right ms-2"></i></a>
                 </div>
             </div>
@@ -2719,7 +2460,7 @@
 </section>
 
 <!-- Testimonial Section -->
-<section class="section testimonial-section">
+{{-- <section class="section testimonial-section">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 text-center wow fadeInUp" data-wow-delay="0.2s">
@@ -2828,7 +2569,7 @@
             </p>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- /Testimonial Section -->
 
 <!-- Provider Section -->
@@ -2922,141 +2663,4 @@
     </div>
 </section>
 <!-- /Business Section -->
-
-<!-- Links Section -->
-<section class="section info-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="accordion accordion-links">
-                    <div class="accordion-item wow fadeInUp bg-transparent" data-wow-delay="0.2s">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button bg-transparent px-0" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#professional" aria-expanded="false">
-                                Our Professions Near You
-                            </button>
-                        </h2>
-                        <div id="professional" class="accordion-collapse collapse show">
-                            <div class="accordion-body border-0 px-0">
-                                <div class="row row-cols-xl-6 row-cols-md-4 row-cols-sm-2 row-cols-1">
-                                    <div class="col">
-                                        <div class="main-links">
-                                            <a href="javascript:void(0);">Appliance Repair</a>
-                                            <a href="javascript:void(0);">Flooring</a>
-                                            <a href="javascript:void(0);">Garage Doors</a>
-                                            <a href="javascript:void(0);">Fencing</a>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="main-links">
-                                            <a href="javascript:void(0);">Carpet Cleaning</a>
-                                            <a href="javascript:void(0);">Driveways</a>
-                                            <a href="javascript:void(0);">Gutter Cleaning</a>
-                                            <a href="javascript:void(0);">Land Surveying</a>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="main-links">
-                                            <a href="javascript:void(0);">Contractors</a>
-                                            <a href="javascript:void(0);">Exterior Painting</a>
-                                            <a href="javascript:void(0);">Gutter Repair</a>
-                                            <a href="javascript:void(0);">Landscaping</a>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="main-links">
-                                            <a href="javascript:void(0);">Drywall </a>
-                                            <a href="javascript:void(0);">Plumbing</a>
-                                            <a href="javascript:void(0);">Home Builders</a>
-                                            <a href="javascript:void(0);">Lawn & Yard Work</a>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="main-links">
-                                            <a href="javascript:void(0);">Electrical & Services</a>
-                                            <a href="javascript:void(0);">Remodeling</a>
-                                            <a href="javascript:void(0);">Home Builders</a>
-                                            <a href="javascript:void(0);">Sprinkler Systems</a>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="main-links">
-                                            <a href="javascript:void(0);">House Cleaning</a>
-                                            <a href="javascript:void(0);">Interior Painting</a>
-                                            <a href="javascript:void(0);">Roofing</a>
-                                            <a href="javascript:void(0);">More Services</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item mb-0 wow fadeInUp bg-transparent" data-wow-delay="0.2s">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button bg-transparent px-0" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#city" aria-expanded="false">
-                                Popular Cities
-                            </button>
-                        </h2>
-                        <div id="city" class="accordion-collapse collapse show">
-                            <div class="accordion-body border-0 px-0">
-                                <div class="row row-cols-xl-6 row-cols-md-4 row-cols-sm-2 row-cols-1">
-                                    <div class="col">
-                                        <div class="main-links">
-                                            <a href="javascript:void(0);">Detroit</a>
-                                            <a href="javascript:void(0);">Greensboro</a>
-                                            <a href="javascript:void(0);">Kansas City</a>
-                                            <a href="javascript:void(0);">Memphis</a>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="main-links">
-                                            <a href="javascript:void(0);">El Paso</a>
-                                            <a href="javascript:void(0);">Harrisburg</a>
-                                            <a href="javascript:void(0);">Las Vegas</a>
-                                            <a href="javascript:void(0);">Miami</a>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="main-links">
-                                            <a href="javascript:void(0);">Fort Lauderdale</a>
-                                            <a href="javascript:void(0);">Hartford</a>
-                                            <a href="javascript:void(0);">Long Beach</a>
-                                            <a href="javascript:void(0);">Milwaukee</a>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="main-links">
-                                            <a href="javascript:void(0);">Fort Worth </a>
-                                            <a href="javascript:void(0);">Houston</a>
-                                            <a href="javascript:void(0);">Los Angeles</a>
-                                            <a href="javascript:void(0);">Minneapolis</a>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="main-links">
-                                            <a href="javascript:void(0);">Fresno</a>
-                                            <a href="javascript:void(0);">Indianapolis</a>
-                                            <a href="javascript:void(0);">Louisville</a>
-                                            <a href="javascript:void(0);">Modesto</a>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="main-links">
-                                            <a href="javascript:void(0);">Grand Rapids</a>
-                                            <a href="javascript:void(0);">Jacksonville</a>
-                                            <a href="javascript:void(0);">Madison</a>
-                                            <a href="javascript:void(0);">Nashville</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- /Links Section -->
 @endsection

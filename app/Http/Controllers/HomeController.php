@@ -7,6 +7,9 @@ use App\Models\StaticContent;
 use App\Models\Video;
 use App\Models\Blog;
 use App\Models\ContactUs;
+use App\Models\ServiceCategory;
+use App\Models\ServiceSubCategory;
+use App\Models\Services;
 use Carbon\Carbon;
 
 
@@ -34,9 +37,84 @@ class HomeController extends Controller
                                             $q->where('status', 'schedule')->where('publish_datetime', '<=', now());
                                         });
                                     })->latest()->limit(6)->get();
-        return view('home',compact('blogs'));
+        
+        $categories = ServiceCategory::withCount('services')->where('status', 'Active')->take(12)->get();
+
+        $featuredServices = Services::with('category')
+            ->where('featured', 'Yes')
+            ->where('status', 'Active')
+            ->latest()
+            ->get();
+
+        $popularServices = Services::with('category')
+            ->where('popular', 'Yes')
+            ->where('status', 'Active')
+            ->latest()
+            ->get();
+
+        return view('home',compact('blogs','categories','featuredServices','popularServices'));
     }
 
+    public function services_list(Request $request)
+    {
+        $categories = ServiceCategory::where('status', 'Active')->get();
+
+        $selectedSubcat = ServiceSubCategory::whereIn('service_category_id', $request->categories??["-1"])->where('status', 'Active')->get();
+
+        $query = Services::with('category','subCategory');
+
+        // Keyword search
+        if ($request->filled('title')) {
+            $query->where('name', 'like', '%' . $request->keyword . '%');
+            $query->where('description', 'like', '%' . $request->keyword . '%');
+        }
+
+        // Categories filter
+        if ($request->filled('categories')) {
+            $query->whereIn('service_category_id', $request->categories);
+        }
+
+        // Subcategory filter
+        if ($request->filled('sub_category')) {
+            $query->where('service_sub_category_id', $request->sub_category);
+        }
+
+        // Location filter
+        // if ($request->filled('location')) {
+        //     $query->where('location', 'like', '%' . $request->location . '%');
+        // }
+
+        $services = $query->paginate(12);
+        $servicesCount = $query->count();
+
+        return view('service-list',compact('categories','selectedSubcat','servicesCount','services'));
+    }
+
+    
+    public function categories()
+    {
+        $data = ServiceCategory::where('status', 'Active')->get();
+
+        return view('category-list',compact('data'));
+    }
+
+       
+    public function service_details($slug)
+    {
+        $serviceInfo = Services::with('category')
+            ->where('featured', 'Yes')
+            ->where('status', 'Active')
+            ->latest()
+            ->get();
+
+        $popularServices = Services::with('category')
+            ->where('popular', 'Yes')
+            ->where('status', 'Active')
+            ->latest()
+            ->get();
+
+        return view('service-details',compact('serviceInfo','popularServices'));
+    }
     
     public function static_content()
     {
@@ -49,14 +127,6 @@ class HomeController extends Controller
             return view('static_content', compact('data'));
         }
     }
-
-     
-    public function videos()
-    {
-        $data = Video::where('status', 'Active')->latest()->get();
-        return view('video-list',compact('data'));
-    } 
-
 
     public function blogs(Request $request)
     {

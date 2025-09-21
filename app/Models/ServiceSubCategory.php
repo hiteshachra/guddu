@@ -9,7 +9,7 @@ class ServiceSubCategory extends Model
 
     protected $table = 'service_sub_categories';
     protected $primaryKey = 'id';
-    protected $fillable = ['name','service_category_id','image','status'];
+    protected $fillable = ['id','name','service_category_id','image','status'];
 
 
     public function category()
@@ -17,6 +17,11 @@ class ServiceSubCategory extends Model
         return $this->belongsTo(ServiceCategory::class, 'service_category_id');
     }
 
+    
+    public function services()
+    {
+        return $this->hasMany(Services::class, 'service_sub_category_id');
+    }
 
     public function getCreatedAtAttribute($value)
     {

@@ -72,20 +72,8 @@
 						<li class="nav-item active">
 							<a class="nav-link" href="{{url('/')}}">Home</a>
 						</li>
-						<li class="has-submenu">
-							<a href="javascript:void(0);">Services <i class="fas fa-chevron-down"></i></a>
-							<ul class="submenu">
-								<li><a href="services-grid.html">All Service</a></li>
-                                
-								<li><a href="service-request.html">Service Request</a></li>
-								<li class="has-submenu">
-									<a href="javascript:void(0);">Service Details</a>
-									<ul class="submenu">
-										<li><a href="service-details.html">Service Details 1</a></li>
-										<li><a href="service-details2.html">Service Details 2</a></li>
-									</ul>
-								</li>
-							</ul>
+						<li class="nav-item active">
+							<a class="nav-link" href="{{ route('services-list') }}">Services</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="{{url('about-us')}}">About</a>
@@ -132,56 +120,117 @@
 
     @yield('content')
 
+	<!-- Links Section -->
+	@php
+		$categories = App\Models\ServiceCategory::where('status', 'Active')->get();
+		$groups = 6;
+		$total = $categories->count();
+		$baseSize = intdiv($total, $groups);            // floor(total/groups)
+		$remainder = $total % $groups;                  // remaining 1s to distribute
+
+		$categoryChunks = collect();
+		$offset = 0;
+
+		for ($i = 0; $i < $groups; $i++) {
+			$take = $baseSize + ($i < $remainder ? 1 : 0); // first $remainder groups get +1
+			$categoryChunks->push($categories->slice($offset, $take)->values());
+			$offset += $take;
+		}
+
+
+		$subCategories = App\Models\ServiceSubCategory::where('status', 'Active')->get();
+		$totals = $subCategories->count();
+		$baseSizes = intdiv($totals, $groups);            // floor(total/groups)
+		$remainders = $totals % $groups;                  // remaining 1s to distribute
+
+		$subCategoryChunks = collect();
+		$offsets = 0;
+
+		for ($i = 0; $i < $groups; $i++) {
+			$takes = $baseSizes + ($i < $remainders ? 1 : 0); // first $remainder groups get +1
+			$subCategoryChunks->push($subCategories->slice($offsets, $takes)->values());
+			$offsets += $takes;
+		}
+	@endphp
+	<section class="section info-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="accordion accordion-links">
+						<div class="accordion-item wow fadeInUp bg-transparent" data-wow-delay="0.2s">
+							<h2 class="accordion-header">
+								<button class="accordion-button bg-transparent px-0" type="button" data-bs-toggle="collapse"
+									data-bs-target="#professional" aria-expanded="false">
+									Our Professions Near You
+								</button>
+							</h2>
+							<div id="professional" class="accordion-collapse collapse show">
+								<div class="accordion-body border-0 px-0">
+									<div class="row row-cols-xl-6 row-cols-md-4 row-cols-sm-2 row-cols-1">
+										@foreach($categoryChunks as $chunk)
+										<div class="col">
+											<div class="main-links">
+												@foreach($chunk as $category)
+													<a href="{{ route('services-list', ['categories[]' => $category->id]) }}">{{ $category->name }}</a>
+												@endforeach
+											</div>
+										</div>
+										@endforeach
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item mb-0 wow fadeInUp bg-transparent" data-wow-delay="0.2s">
+							<h2 class="accordion-header">
+								<button class="accordion-button bg-transparent px-0" type="button" data-bs-toggle="collapse" data-bs-target="#city" aria-expanded="false">
+									Services
+								</button>
+							</h2>
+							<div id="city" class="accordion-collapse collapse show">
+								<div class="accordion-body border-0 px-0">
+									<div class="row row-cols-xl-6 row-cols-md-4 row-cols-sm-2 row-cols-1">
+										@foreach($subCategoryChunks as $chunks)
+										<div class="col">
+											<div class="main-links">
+												@foreach($chunks as $subCategory)
+													<a href="{{ route('services-list', ['sub_category' => $subCategory->id]) }}">{{ $subCategory->name }}</a>
+												@endforeach
+											</div>
+										</div>
+										@endforeach
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- /Links Section -->
+
 	<!-- Footer -->
 	<footer>
 		<div class="footer-top">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6 col-xl-2">
-						<div class="footer-widget">
-							<h5 class="mb-4">Top Cites</h5>
-							<ul class="footer-menu">
-								<li>
-									<a href="javascript:void(0);">Features</a>
-								</li>
-								<li>
-									<a href="pricing.html">Pricing</a>
-								</li>
-								<li>
-									<a href="javascript:void(0);">Case studies</a>
-								</li>
-								<li>
-									<a href="javascript:void(0);">Reviews</a>
-								</li>
-								<li>
-									<a href="javascript:void(0);">Updates</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-6 col-xl-2">
+					<div class="col-md-4 col-xl-3">
 						<div class="footer-widget">
 							<h5 class="mb-4">Top Services</h5>
 							<ul class="footer-menu">
 								<li>
-									<a href="javascript:void(0);">Getting started</a>
+									<a href="{{url('home')}}">Home</a>
 								</li>
 								<li>
-									<a href="javascript:void(0);">Help center</a>
+									<a href="{{url('services')}}">Services</a>
 								</li>
 								<li>
-									<a href="javascript:void(0);">Server status</a>
-								</li>
-								<li>
-									<a href="javascript:void(0);">Report a bug</a>
-								</li>
-								<li>
-									<a href="user-chat.html">Chat support</a>
+									<a href="{{ url('categories') }}">Categories</a>
 								</li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-6 col-xl-2">
+					<div class="col-md-4 col-xl-3">
 						<div class="footer-widget">
 							<h5 class="mb-4">Support</h5>
 							<ul class="footer-menu">
@@ -197,7 +246,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-6 col-xl-2">
+					<div class="col-md-4 col-xl-3">
 						<div class="footer-widget">
 							<h5 class="mb-4">Policy</h5>
 							<ul class="footer-menu">
@@ -213,7 +262,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-12 col-xl-4">
+					<div class="col-md-12 col-xl-3">
 						<div class="footer-widget">
                             <div class="d-flex align-items-center flex-wrap">
 								<p><b>Guddu Bhiya Handy Helper</b> is your one-stop solution for reliable home and office maintenance services. From plumbing, electrical, and carpentry to painting, repairs, and daily handyman tasks – we provide trusted, quick, and affordable service at your doorstep.</p>
@@ -256,13 +305,13 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="d-flex align-items-center justify-content-between flex-wrap">
-							<p class="mb-2">Copyright &copy; 2024 - All Rights Reserved Truelysell</p>
+							<p class="mb-2">Copyright &copy; 2024 - All Rights Reserved {{ config('app.name') }}</p>
 							<ul class="menu-links mb-2">
 								<li>
-									<a href="terms-condition.html"> Terms and Conditions</a>
+									<a href="{{url('terms')}}"> Terms and Conditions</a>
 								</li>
 								<li>
-									<a href="privacy-policy.html">Privacy Policy</a>
+									<a href="{{url('privacy-policy')}}">Privacy Policy</a>
 								</li>
 							</ul>
 						</div>

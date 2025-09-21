@@ -57,16 +57,16 @@
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner py-6">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body pt-0">
               <!-- Logo -->
-              <div class="app-brand justify-content-center mb-6">
+              <div class="app-brand justify-content-center mb-2">
                 <a href="{{url('/')}}" class="app-brand-link">
                   <span class="app-brand-logo demo">
                     <span class="text-primary">
-                      <img src="{{asset('images/'.config('app.logo'))}}" width="60">
+                      <img src="{{asset('images/'.config('app.dark_logo'))}}" width="180">
                     </span>
                   </span>
-                  <span class="app-brand-text demo fw-bold text-primary">{{ config('app.name') }}</span>
+                  {{-- <span class="app-brand-text demo fw-bold text-primary">{{ config('app.name') }}</span> --}}
                 </a>
               </div>
               @yield('content')

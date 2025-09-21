@@ -88,6 +88,15 @@ class Controller extends BaseController
         return response()->json($cities);
     }
 
+    public function getSubcategories()
+    {
+        $categoryIds = explode(',', request()->categories ?? []);
+        
+        $subcategories = ServiceSubCategory::whereIn('service_category_id', $categoryIds)->where('status', 'Active')->get(['id', 'name']);
+
+        return response()->json($subcategories);
+    }
+
     public function subCategories($category_id){
         $categories = ServiceSubCategory::where(['service_category_id'=>$category_id,'status'=>'Active'])->get();
         return response()->json($categories);
