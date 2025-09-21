@@ -1,4 +1,5 @@
 
+<<<<<<< Updated upstream:storage/framework/views/5d65cd322fb40ed84db036de301fd8e4.php
 
 <?php $__env->startSection('content'); ?>
 <!--==================================================-->
@@ -188,57 +189,180 @@ unset($__errorArgs, $__bag); ?>
 <!--==================================================-->
 <div class="map-section">
 	<div class="-custon-container-fluid">
+=======
+@extends('layouts.app_front')
+@section('content')
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar text-center">
+	<div class="container">
+>>>>>>> Stashed changes:resources/views/contact-us.blade.php
 		<div class="row">
-			<div class="col-lg-12 p-0">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48384.367867189205!2d-74.01058227968896!3d40.71751035716885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1609671967457!5m2!1sen!2sbd" width="1920" height="520" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+			<div class="col-md-12 col-12">
+				<h2 class="breadcrumb-title mb-2">Contact Us</h2>
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb justify-content-center mb-0">
+						<li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="ti ti-home-2"></i></a></li>
+						<li class="breadcrumb-item">Home</li>
+						<li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+					</ol>
+				</nav>
 			</div>
+		</div>
+		<div class="breadcrumb-bg">
+			<img src="{{ asset('front/assets/img/bg/bg-07.webp') }}" class="breadcrumb-bg-1" alt="">
+			<img src="{{ asset('front/assets/img/bg/bg-07.webp') }}" class="breadcrumb-bg-2" alt="">
 		</div>
 	</div>
 </div>
-<!--==================================================-->
-<!-- Start Consalt Map Area -->
-<!--==================================================-->
+<!-- /Breadcrumb -->
 
-
-<!--==================================================-->
-<!-- Start Consalt Call Area -->
-<!--==================================================-->
-<section class="call_area style_three">
-	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-lg-4 col-md-6">
-				<div class="call-do-action-info">
-					<div class="call-do-social_icon">
-						<i class="fas fa-phone-alt"></i>
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+	<div class="content">
+			
+		<div class="container">
+		
+		<div class="contacts">
+			<div class="contacts-overlay-img d-none d-lg-block">
+				<img src="https://truelysell.dreamstechnologies.com/html/template/assets/img/bg/bg-07.png" alt="img" class="img-fluid">
+			</div>
+			<div class="contacts-overlay-sm d-none d-lg-block">
+				<img src="https://truelysell.dreamstechnologies.com/html/template/assets/img/bg/bg-08.png" alt="img" class="img-fluid">
+			</div>
+				<!-- Contact Details -->
+				<div class="contact-details">
+					<div class="row justify-content-center">
+						<div class="col-md-6 col-lg-4 d-flex">
+							<div class="card flex-fill">
+								<div class="card-body">
+									<div class="d-flex align-items-center">
+										<span class="rounded-circle"><i class="ti ti-phone text-primary"></i></span>
+										<div>
+											<h6 class="fs-18 mb-1">Phone Number</h6>
+											<p class="fs-14">{{ config('app.contact_us') }}</p>
+											{{-- <p class="fs-14">(123) 456-7890</p> --}}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-4 d-flex">
+							<div class="card flex-fill">
+								<div class="card-body">
+									<div class="d-flex align-items-center">
+										<span class="rounded-circle"><i class="ti ti-mail text-primary"></i></span>
+										<div>
+											<h6 class="fs-18 mb-1">Email Address</h6>
+											<p class="fs-14"><a>{{ config('app.email') }}</a></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-4 d-flex">
+							<div class="card flex-fill">
+								<div class="card-body">
+									<div class="d-flex align-items-center">
+										<span class="rounded-circle"><i class="ti ti-map-pin text-primary"></i></span>
+										<div>
+											<h6 class="fs-18 mb-1">Address</h6>
+											<p class="fs-14">{{ config('app.address') }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="call_info">
-						<p>Say Hello</p>
-						<h3>example@gmail.com</h3>
+				</div>
+				<!-- /Contact Details -->
+				
+				<!-- Get In Touch -->
+				<div class="row">
+					<div class="col-md-6 d-flex align-items-center">
+						<div class="contact-img flex-fill">
+							<img src="https://truelysell.dreamstechnologies.com/html/template/assets/img/services/service-76.jpg" class="img-fluid" alt="img">
+						</div>
 					</div>
-				</div>		
-			</div>
-			<div class="col-lg-4 col-md-6">
-				<div class="footer_logo">
-					<a href="index.html"><img src="assets/images/logo.png" alt=""></a>
-				</div>
-			</div>
+					<div class="col-md-6 d-flex align-items-center justify-content-center">
+						<div class="contact-queries flex-fill">
+							<h2>Get In Touch</h2>
+							@if(session('success'))
+								<div class="alert alert-success mt-3">{{ session('success') }}</div>
+							@endif
+							<form action="{{ route('contact.submit') }}" method="POST">
+								@csrf
+								<div class="row">
+									<div class="col-md-12">
+										<div class="mb-3">
+											<div class="form-group">
+												<input class="form-control" type="text" name="name" placeholder="Your Name" value="{{ old('name') }}">
+												@error('name') <small class="text-danger">{{ $message }}</small> @enderror
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="mb-3">
+											<div class="form-group">
+												<input class="form-control" type="email" name="email" placeholder="Your Email Address" value="{{ old('email') }}">
+												@error('email') <small class="text-danger">{{ $message }}</small> @enderror
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="mb-3">
+											<div class="form-group">
+												<input class="form-control" type="text" name="phone" placeholder="Your Phone No" value="{{ old('phone') }}">
+												@error('phone') <small class="text-danger">{{ $message }}</small> @enderror
+											</div>
+										</div>
+										<div class="mb-3">
+											<div class="form-group">
+												<input class="form-control" type="text" name="subject" placeholder="Subject" value="{{ old('subject') }}">
+												@error('subject') <small class="text-danger">{{ $message }}</small> @enderror
+											</div>
+										</div>
+										<div class="mb-3">
+											<div class="form-group">
+												<textarea class="form-control" name="message" cols="30" rows="5" placeholder="Write Message">{{ old('message') }}</textarea>
+												@error('message') <small class="text-danger">{{ $message }}</small> @enderror
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12 submit-btn">
+										<div class="form-check mb-3">
+											<input class="form-check-input" type="checkbox" name="accept_terms" id="accept_terms" checked> 
+											<label class="form-check-label" for="accept_terms">	I agree to terms</label>
+										</div>
+										@error('accept_terms') <br><small class="text-danger">{{ $message }}</small> @enderror
 
-			<div class="col-lg-4 col-md-6">
-				<div class="call_social_icon">
-					<ul>
-						<li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-						<li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
-						<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-						<li><a class="top-social-icon-left" href="#"><i class="fab fa-twitter"></i></a></li>
-					</ul>
+										<button class="btn btn-dark d-flex align-items-center " type="submit">Send Message<i class="feather-arrow-right-circle ms-2"></i></button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
 				</div>
-			</div>
+				<!-- /Get In Touch -->
 		</div>
-
+			
+		</div>
 	</div>
+<<<<<<< Updated upstream:storage/framework/views/5d65cd322fb40ed84db036de301fd8e4.php
 </section>
 <!--==================================================-->
 <!-- End Consalt Call Area -->
 <!--==================================================-->
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app_front', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\wamp64\www\sgitsss\ignitingbusiness\resources\views/contact-us.blade.php ENDPATH**/ ?>
+=======
+
+	<!-- Map -->
+	<div class="map-grid">
+		<iframe src="https://www.google.com/maps?q=Uttar+Pradesh,+India&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+	</div>	
+	<!-- /Map -->
+</div>
+<!-- /Page Wrapper -->
+@endsection
+>>>>>>> Stashed changes:resources/views/contact-us.blade.php
