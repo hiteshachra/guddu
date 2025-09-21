@@ -471,9 +471,9 @@
                                                 </a>
                                             </li>
                                             <li class="menu-item">
-                                                <a href="{{ route('course_list') }}" class="menu-link">
+                                                <a href="{{ route('services_list') }}" class="menu-link">
                                                     <i class="menu-icon icon-base ti tabler-certificate"></i>
-                                                    <div data-i18n="Courses">Courses</div>
+                                                    <div data-i18n="Services">Services</div>
                                                 </a>
                                             </li>
                                         </ul>
@@ -922,6 +922,42 @@
                 }
             });
         }
+
+
+         function getServiceSubCat(categoryId, selectedSUbCatId = null, subCatSelectID = '#sub_cat_id') {
+            const $subCatSelect = $(subCatSelectID);
+
+            $subCatSelect.empty();
+            $subCatSelect.html('<option disabled selected>Loading...</option>');
+            $subCatSelect.trigger('change');
+            const isSelectedValid = selectedSUbCatId !== null && selectedSUbCatId !== undefined && selectedSUbCatId !== '';
+
+            $.ajax({
+                url: "{{ route('service_sub_categories', ':id') }}".replace(':id', categoryId),
+                method: 'GET',
+                success: function(data) {
+
+                    $subCatSelect.empty();
+
+                    if (!isSelectedValid) {
+                        $subCatSelect.append('<option disabled selected>Select Sub Category</option>');
+                    }
+
+                    data.forEach(function(subCat) {
+                        const isSelected = isSelectedValid && subCat.id == selectedSUbCatId;
+                        const option = new Option(subCat.name, subCat.id, isSelected, isSelected);
+                        $subCatSelect.append(option);
+                    });
+
+                    $subCatSelect.trigger('change');
+                },
+                error: function(xhr, status, error) {
+                    $subCatSelect.empty();
+                    $subCatSelect.trigger('change');
+                }
+            });
+        }
+
 
         const fullToolbar = [
             [{

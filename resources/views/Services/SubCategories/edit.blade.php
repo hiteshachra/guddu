@@ -6,25 +6,42 @@
         <div class="col-xl">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Update User Package</h5>
+                    <h5 class="mb-0">Update Sub Category
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('edit_category', [$category->id]) }}" method="POST">
+                    <form action="{{ route('edit_sub_category', [$subCategory->id]) }}" method="POST" enctype="multipart/form-data">
 
                         @csrf
                         <div class="row">
 
-
-                             <div class="col-sm-6">
+                            <div class="col-sm-6">
                                 <div class="mb-6">
-                                    <label class="form-label" for="name">Name <span
+                                    <label for="category_id" class="form-label">Category<span
                                             class="text-danger">*</span></label>
+                                    <select class="selectpicker w-100" data-style="btn-default" id="category_id"
+                                        name="category_id" aria-label="Select Category" required>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}" @selected(old('category_id', $subCategory->service_category_id) == $category->id)>
+                                                {{ $category->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                @error('category_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+
+                            <div class="col-sm-6">
+                                <div class="mb-6">
+                                    <label class="form-label" for="name">Name <span class="text-danger">*</span></label>
                                     <div class="input-group input-group-merge">
                                         <span id="name2" class="input-group-text"><i
                                                 class="icon-base ti tabler-label"></i></span>
                                         <input type="text" class="form-control" id="name" name="name"
-                                            placeholder="Name" aria-label="Name" required value="{{ old('name',$category->name) }}"
-                                            aria-describedby="name2" />
+                                            placeholder="Name" aria-label="Name" required
+                                            value="{{ old('name', $subCategory->name) }}" aria-describedby="name2" />
                                     </div>
                                     @error('name')
                                         <span class="text-danger">{{ $message }}</span>
@@ -33,6 +50,16 @@
                             </div>
 
 
+                            <div class="col-sm-6">
+                                <div class="mb-6">
+                                    <label for="image" class="form-label">Image</label>
+                                    <input class="form-control" type="file" id="image" name="image"
+                                        accept="image/*" />
+                                </div>
+                                @error('image')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
 
                         </div>
 

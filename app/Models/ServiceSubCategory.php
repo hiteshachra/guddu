@@ -9,7 +9,7 @@ class ServiceSubCategory extends Model
 
     protected $table = 'service_sub_categories';
     protected $primaryKey = 'id';
-    protected $fillable = ['name','service_category_id','status'];
+    protected $fillable = ['name','service_category_id','image','status'];
 
 
     public function category()

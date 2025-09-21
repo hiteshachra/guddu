@@ -9,15 +9,35 @@
                     <h5 class="mb-0">Add Category</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('add_category') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('add_sub_category') }}" method="POST" enctype="multipart/form-data">
 
                         @csrf
                         <div class="row">
 
-                             <div class="col-sm-6">
+
+                            <div class="col-sm-6">
                                 <div class="mb-6">
-                                    <label class="form-label" for="name">Name <span
+                                    <label for="category_id" class="form-label">Category<span
                                             class="text-danger">*</span></label>
+                                    <select class="selectpicker w-100" data-style="btn-default" id="category_id"
+                                        name="category_id" aria-label="Select Category" required>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
+                                                {{ $category->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                @error('category_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+
+
+                            <div class="col-sm-6">
+                                <div class="mb-6">
+                                    <label class="form-label" for="name">Name <span class="text-danger">*</span></label>
                                     <div class="input-group input-group-merge">
                                         <span id="name2" class="input-group-text"><i
                                                 class="icon-base ti tabler-label"></i></span>
@@ -29,6 +49,17 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="mb-6">
+                                    <label for="image" class="form-label">Image<span class="text-danger">*</span></label>
+                                    <input class="form-control" type="file" id="image" name="image"
+                                        accept="image/*" required />
+                                </div>
+                                @error('image')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                         </div>

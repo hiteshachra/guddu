@@ -9,6 +9,7 @@ use App\Models\Configuration;
 use App\Models\Banner;
 use App\Models\Town;
 use App\Models\Citie;
+use App\Models\ServiceSubCategory;
 use App\Models\State;
 use File;
 
@@ -85,6 +86,11 @@ class Controller extends BaseController
 
           $cities = Citie::where(['state_id'=>$state_id,'status'=>'Active'])->orderBy('name','asc')->get();
         return response()->json($cities);
+    }
+
+    public function subCategories($category_id){
+        $categories = ServiceSubCategory::where(['service_category_id'=>$category_id,'status'=>'Active'])->get();
+        return response()->json($categories);
     }
 
 }

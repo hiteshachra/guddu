@@ -35,6 +35,7 @@ Route::get('/blog/{slug}', [HomeController::class, 'blogDetails'])->name('blog_d
 
 Route::get('states/{country_id}', [Controller::class, 'states'])->name('states');
 Route::get('cities/{state_id}', [Controller::class, 'cities'])->name('cities');
+Route::get('service-sub-category/{category_id}', [Controller::class, 'subCategories'])->name('service_sub_categories');
 
 Route::middleware(['roleAuth:Admin'])->group(function () {
 
@@ -76,6 +77,13 @@ Route::middleware(['roleAuth:Admin'])->group(function () {
         Route::match(['get', 'post'], 'add', [ServiceController::class, 'addSubCategory'])->name('add_sub_category');
         Route::match(['get', 'post'], 'edit/{id}', [ServiceController::class, 'editSubCategory'])->name('edit_sub_category');
         Route::match(['get', 'post'], 'status/{id}', [ServiceController::class, 'statusSubCategory'])->name('status_sub_category');
+    });
+
+    Route::prefix('services')->group(function () {
+        Route::match(['get', 'post'], 'list', [ServiceController::class, 'servicesList'])->name('services_list');
+        Route::match(['get', 'post'], 'add', [ServiceController::class, 'addService'])->name('add_service');
+        Route::match(['get', 'post'], 'edit/{id}', [ServiceController::class, 'editService'])->name('edit_service');
+        Route::match(['get', 'post'], 'status/{id}', [ServiceController::class, 'statusService'])->name('status_service');
     });
 
     Route::prefix('users-steps')->group(function () {
