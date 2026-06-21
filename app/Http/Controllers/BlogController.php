@@ -29,6 +29,7 @@ class BlogController extends Controller
     public function categoryIndex(Request $request)
     {
 
+        dd($request->all());
         if ($request->ajax()) {
             $query = BlogCategory::latest();
 
@@ -78,7 +79,7 @@ class BlogController extends Controller
     {
         return view('blog.category.add');
     }
-    
+
     public function categoryStore(Request $request)
     {
         $request->slug = Str::slug($request->name);
@@ -203,7 +204,7 @@ class BlogController extends Controller
     public function blogStore(Request $request)
     {
         $request->slug = Str::slug($request->title);
-     
+
         $request->validate([
             'title' => 'required|string|max:255|unique:blogs,title',
             'content' => 'required',
@@ -232,7 +233,7 @@ class BlogController extends Controller
         return redirect()->route('blog_list')->with(['status' => 'success', 'message' => 'Blog created successfully.']);
     }
 
-  
+
     public function blogEdit($id)
     {
         $blog = Blog::findOrFail($id);
