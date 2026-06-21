@@ -28,8 +28,6 @@ class BlogController extends Controller
 
     public function categoryIndex(Request $request)
     {
-
-        dd($request->all());
         if ($request->ajax()) {
             $query = BlogCategory::latest();
 

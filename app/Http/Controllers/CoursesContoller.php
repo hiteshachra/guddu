@@ -17,6 +17,7 @@ class CoursesContoller extends Controller
     public function packageList(Request $request)
     {
 
+        dd($request->all());
         if ($request->ajax()) {
             $query = Packages::query();
 
