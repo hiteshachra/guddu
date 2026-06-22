@@ -17,8 +17,6 @@ class CoursesContoller extends Controller
     public function packageList(Request $request)
     {
 
-     dd($request->all());
-
         if ($request->ajax()) {
             $query = Packages::query();
 
@@ -74,8 +72,7 @@ class CoursesContoller extends Controller
     public function addPackage(Request $request)
     {
 
-
-
+    dd($request->all());
 
         if ($request->method() == 'POST') {
 
