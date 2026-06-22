@@ -72,7 +72,7 @@ class CoursesContoller extends Controller
     public function addPackage(Request $request)
     {
 
-    dd($request->all()  ,1);
+    dd($request->all());
 
         if ($request->method() == 'POST') {
 
